@@ -291,3 +291,20 @@ converted <- problems %>%
 index <- str_detect(converted, pattern6) #check how many entries comply with the format x'y
 mean(index) #percentage of correct format
 converted[!index] #check those entries which are still problematic
+
+#extract()
+s <- c("1'2", "3'4\"","5'10inches")
+tab <- data.frame(x = s)
+tab %>% extract(x, c("ft","in"), regex = "(\\d)'(\\d{1,2})")
+
+#str_split()
+names <- c("Billy, Brownie and Chicken", "Hamlin, Hamlin and McGill")
+str_split(names, ", | and ")
+days <- c("Monday", "Tuesday")
+staff <- cbind(names, days)
+staff <- as_tibble(staff)
+tidy <- staff %>% 
+  mutate(names = str_split(names, ", | and ")) %>%
+  unnest()
+tidy
+
